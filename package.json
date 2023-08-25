@@ -13,12 +13,12 @@
 		"coverage": "npm run build && npx hardhat coverage --temp artifacts --network coverage",
 		"deploy:token": "npx hardhat run scripts/deploy-token.ts --network base_mainnet",
 		"deploy:contracts": "npx hardhat run scripts/deploy-contracts.ts --network base_mainnet",
-		"deploy:token:test": "npx hardhat run scripts/deploy-token.ts --network base_goreli",
-		"deploy:contracts:test": "npx hardhat run scripts/deploy-contracts.ts --network base_goreli"
+		"deploy:token:test": "npx hardhat run scripts/deploy-token.ts --network goerli",
+		"deploy:contracts:test": "npx hardhat run scripts/deploy-contracts.ts --network goerli"
 	},
 	"dependencies": {
 		"@nomiclabs/hardhat-ethers": "^2.0.1",
-		"@nomiclabs/hardhat-etherscan": "^2.1.0",
+		"@nomiclabs/hardhat-etherscan": "^3.1.7",
 		"@nomiclabs/hardhat-waffle": "^2.0.1",
 		"@openzeppelin/contracts": "^4.9.3",
 		"@typechain/ethers-v5": "^4.0.0",

@@ -14,5 +14,21 @@
 			"address": "",
 			"baseRate": 0
 		}
+	},
+	"goerli": {
+		"token": "0x4B8F444b313AeBAC210A8B39Efd397a884D94c01",
+		"nft": "0x0000000000000000000000000000000000000000",
+		"coinflip": {
+			"address": "0xeE756c9C994bC9c14dBfE85DaB439DC8575ebBE6",
+			"fee": 400
+		},
+		"dice": {
+			"address": "0x2D871163968f9C03e0961Cb46297025F05e21134",
+			"fee": 400
+		},
+		"staking": {
+			"address": "0xa3e135E91937296C51766917ca2F4E881d0e7Ef4",
+			"baseRate": 0
+		}
 	}
 }
