@@ -10,7 +10,11 @@
 		"lint": "npx solhint contracts/*.sol && npx eslint . && npx markdownlint --ignore node_modules **/*.md",
 		"format": "prettier --check \"contracts/**/*.sol\" \"**/*.ts\" \"**/*.md\" \"**/*.yml\"",
 		"test": "npx hardhat test",
-		"coverage": "npm run build && npx hardhat coverage --temp artifacts --network coverage"
+		"coverage": "npm run build && npx hardhat coverage --temp artifacts --network coverage",
+		"deploy:token": "npx hardhat run scripts/deploy-token.ts --network base_mainnet",
+		"deploy:contracts": "npx hardhat run scripts/deploy-contracts.ts --network base_mainnet",
+		"deploy:token:test": "npx hardhat run scripts/deploy-token.ts --network base_goreli",
+		"deploy:contracts:test": "npx hardhat run scripts/deploy-contracts.ts --network base_goreli"
 	},
 	"dependencies": {
 		"@nomiclabs/hardhat-ethers": "^2.0.1",
