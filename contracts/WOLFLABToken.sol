@@ -23,7 +23,7 @@ contract WOLFLABToken is Context, IERC20, Ownable {
         _symbol = "WOLFIES";
         _decimals = 18;
         uint256 initialSupply = 100_000_000 ether;
-    
+
         _mint(initialOwner, initialSupply);
     }
 

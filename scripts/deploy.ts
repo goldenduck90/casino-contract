@@ -1,10 +1,14 @@
 import { ethers } from "hardhat";
 
-async function main() {
-  const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("hai");
-  await greeter.deployed();
-  console.log("Greeter address:", greeter.address); // eslint-disable-line no-console
+const deployToken = async () => {
+  const WOLFLABToken = await ethers.getContractFactory("WOLFLABToken");
+  const token = await WOLFLABToken.deploy("0x73eA65d9551b91cb30F2ee617717dB8dB74F538f");
+  await token.deployed();
+  console.log("WOLFLABToken address:", token.address); // eslint-disable-line no-console
+}
+
+const main = async () => {
+  await deployToken();
 }
 
 main()
