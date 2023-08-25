@@ -18,11 +18,13 @@ contract WOLFLABToken is Context, IERC20, Ownable {
     string private _symbol;
     string private _name;
 
-    constructor() {
+    constructor(address initialOwner) {
         _name = "WOLFLAB";
         _symbol = "WOLFIES";
         _decimals = 18;
-        _totalSupply = 100_000_000 ether;
+        uint256 initialSupply = 100_000_000 ether;
+    
+        _mint(initialOwner, initialSupply);
     }
 
     /**
