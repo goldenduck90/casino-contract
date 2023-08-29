@@ -12,9 +12,11 @@
 		"test": "npx hardhat test",
 		"coverage": "npm run build && npx hardhat coverage --temp artifacts --network coverage",
 		"deploy:token": "npx hardhat run scripts/deploy-token.ts --network base_mainnet",
+		"deploy:booster-nft": "npx hardhat run scripts/deploy-booster-nft.ts --network base_mainnet",
 		"deploy:contracts": "npx hardhat run scripts/deploy-contracts.ts --network base_mainnet",
 		"deploy:token:test": "npx hardhat run scripts/deploy-token.ts --network goerli",
-		"deploy:contracts:test": "npx hardhat run scripts/deploy-contracts.ts --network goerli"
+		"deploy:contracts:test": "npx hardhat run scripts/deploy-contracts.ts --network goerli",
+		"deploy:booster-nft:test": "npx hardhat run scripts/deploy-booster-nft.ts --network goerli"
 	},
 	"dependencies": {
 		"@nomiclabs/hardhat-ethers": "^2.0.1",

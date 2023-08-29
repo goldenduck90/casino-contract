@@ -13,15 +13,13 @@ contract WolfieBoosterNFT is ERC721A, ERC721AQueryable, Ownable, ReentrancyGuard
     /// @notice Event emitted when user minted tokens.
     event Minted(address user, uint256 quantity, uint256 totalSupply);
 
-    uint256 public immutable maxSupply;
+    uint256 public immutable maxSupply = 2500;
 
     string private _baseTokenURI;
 
     mapping(address => uint256) public whitelist;
 
-    constructor(string memory name, string memory symbol, uint256 _maxSupply) ERC721A(name, symbol) {
-        maxSupply = _maxSupply;
-    }
+    constructor() ERC721A("WolfieBoosterNFT", "WBN") {}
 
     modifier callerIsUser() {
         require(tx.origin == _msgSenderERC721A(), "The caller is another contract");
