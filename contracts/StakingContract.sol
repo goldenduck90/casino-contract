@@ -114,8 +114,8 @@ contract StakingContract is Ownable, ReentrancyGuard {
             require(IERC721(token).ownerOf(tokenId) == address(this), "Incorrect BoosterNFT Token ID");
             IERC721(token).transferFrom(address(this), msg.sender, tokenId);
 
-            uint256 oldIndex = stakingInfo.boosterNftTokenIndex[tokenId]
-            uint256 lastTokenId = stakingInfo.boosterNftIds[stakingInfo.boosterNftIds.length - 1]
+            uint256 oldIndex = stakingInfo.boosterNftTokenIndex[tokenId];
+            uint256 lastTokenId = stakingInfo.boosterNftIds[stakingInfo.boosterNftIds.length - 1];
             stakingInfo.boosterNftIds[oldIndex] = lastTokenId;
             stakingInfo.boosterNftTokenIndex[lastTokenId] = oldIndex;
 
@@ -129,7 +129,7 @@ contract StakingContract is Ownable, ReentrancyGuard {
             (stakingInfo.boosterNftIds.length + stakingInfo.characterNftIds.length) *
             500;
 
-        emit NFTTokenUnstaked(msg.sender, token, tokenId);
+        emit NFTTokenUnstaked(msg.sender, token, tokenIds);
     }
 
     function unstakeCharacterNFTToken(address token, uint256[] calldata tokenIds) external {
@@ -146,8 +146,8 @@ contract StakingContract is Ownable, ReentrancyGuard {
             require(IERC721(token).ownerOf(tokenId) == address(this), "Incorrect CharacterNFT Token ID");
             IERC721(token).transferFrom(address(this), msg.sender, tokenId);
 
-            uint256 oldIndex = stakingInfo.characterNftTokenIndex[tokenId]
-            uint256 lastTokenId = stakingInfo.characterNftIds[stakingInfo.characterNftIds.length - 1]
+            uint256 oldIndex = stakingInfo.characterNftTokenIndex[tokenId];
+            uint256 lastTokenId = stakingInfo.characterNftIds[stakingInfo.characterNftIds.length - 1];
             stakingInfo.characterNftIds[oldIndex] = lastTokenId;
             stakingInfo.characterNftTokenIndex[lastTokenId] = oldIndex;
 
@@ -161,7 +161,7 @@ contract StakingContract is Ownable, ReentrancyGuard {
             (stakingInfo.boosterNftIds.length + stakingInfo.characterNftIds.length) *
             500;
 
-        emit NFTTokenUnstaked(msg.sender, token, tokenId);
+        emit NFTTokenUnstaked(msg.sender, token, tokenIds);
     }
 
     function stakeToken(address token, uint256 amount) external {
@@ -232,6 +232,7 @@ contract StakingContract is Ownable, ReentrancyGuard {
     function updateBoosterNFTToken(address _NFTToken) external onlyOwner {
         BoosterNFTToken = _NFTToken;
     }
+
     function updateCharacterNFTToken(address _NFTToken) external onlyOwner {
         CharacterNFTToken = _NFTToken;
     }
