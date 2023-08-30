@@ -5,11 +5,13 @@ import {Ownable} from "./openzepplin/Ownable.sol";
 import {IERC20} from "./interfaces/IERC20.sol";
 import {IERC721} from "./interfaces/IERC721.sol";
 import {SafeMath} from "./openzepplin/SafeMath.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract StakingContract is Ownable {
+contract StakingContract is Ownable ReentrancyGuard {
     using SafeMath for uint256;
 
-    address public NFTToken;
+    address public BoosterNFTToken;
+    address public CharacterNFTToken;
     address public Token;
 
     uint256 private baseRate;
@@ -18,8 +20,9 @@ contract StakingContract is Ownable {
     uint256 public totalReward;
     uint256 public rewardTokenAmount;
 
-    constructor(address _NFTToken, address _Token, uint256 _baseRate) {
-        NFTToken = _NFTToken;
+    constructor(address _BoosterNFTToken, address _CharacterNFTToken, address _Token, uint256 _baseRate) {
+        BoosterNFTToken = _BoosterNFTToken;
+        CharacterNFTToken = _CharacterNFTToken;
         Token = _Token;
         baseRate = _baseRate;
 
@@ -32,57 +35,136 @@ contract StakingContract is Ownable {
     struct Staking {
         address staker;
         uint256 amount;
-        uint[] nftIds;
-        mapping(uint256 => uint256) nftTokenIndex;
-        uint lastTime;
+        uint256[] boosterNftIds;
+        uint256[] characterNftIds;
+        mapping(uint256 => uint256) boosterNftTokenIndex;
+        mapping(uint256 => uint256) characterNftTokenIndex;
+        uint256 lastTime;
         uint256 rewardRate;
         uint256 pendingReward;
     }
 
     mapping(address => Staking) public StakingData;
 
-    event NFTTokenStaked(address indexed staker, address indexed token, uint token_id);
-    event NFTTokenUnstaked(address indexed staker, address indexed token, uint token_id);
-    event rewardClaimed(address indexed staker, address indexed token, uint amount);
-    event tokenStaked(address indexed staker, address indexed token, uint amount);
-    event tokenUnstaked(address indexed staker, address indexed token, uint amount);
+    event NFTTokenStaked(address indexed staker, address indexed token, uint256[] tokenIds);
+    event NFTTokenUnstaked(address indexed staker, address indexed token, uint256[] tokenIds);
+    event rewardClaimed(address indexed staker, address indexed token, uint256 amount);
+    event tokenStaked(address indexed staker, address indexed token, uint256 amount);
+    event tokenUnstaked(address indexed staker, address indexed token, uint256 amount);
 
-    function stakeNFTToken(address token, uint tokenId) public {
-        require(token == NFTToken, "incorrect NFT to stake");
+    function stakeBoosterNFTToken(address token, uint256[] calldata tokenIds) external {
+        require(token == BoosterNFTToken, "incorrect BoosterNFT to stake");
+
+        uint256 tokenId;
+        uint256 len = tokenIds.length;
 
         updateReward(msg.sender);
-
-        IERC721(token).transferFrom(msg.sender, address(this), tokenId);
-
         Staking storage stakingInfo = StakingData[msg.sender];
-        stakingInfo.nftIds.push(tokenId);
-        stakingInfo.rewardRate = baseRate + 4500 + stakingInfo.nftIds.length * 500;
-        stakingInfo.nftTokenIndex[tokenId] = stakingInfo.nftIds.length - 1;
 
-        emit NFTTokenStaked(msg.sender, token, tokenId);
+        for (uint256 i; i < len; ) {
+            tokenId = tokenIds[i];
+            IERC721(token).transferFrom(msg.sender, address(this), tokenId);
+            stakingInfo.boosterNftIds.push(tokenId);
+            stakingInfo.boosterNftTokenIndex[tokenId] = stakingInfo.boosterNftIds.length - 1;
+        }
+        stakingInfo.rewardRate =
+            baseRate +
+            4500 +
+            (stakingInfo.boosterNftIds.length + stakingInfo.characterNftIds.length) *
+            500;
+
+        emit NFTTokenStaked(msg.sender, token, tokenIds);
     }
 
-    function unstakeNFTToken(address token, uint tokenId) public {
-        require(token == NFTToken, "incorrect NFT to unstake");
-        require(IERC721(token).ownerOf(tokenId) == address(this), "Incorrect NFT Token ID");
+    function stakeCharacterNFTToken(address token, uint256[] calldata tokenIds) external {
+        require(token == CharacterNFTToken, "incorrect CharacterNFT to stake");
 
-        Staking storage stakingInfo = StakingData[msg.sender];
+        uint256 tokenId;
+        uint256 len = tokenIds.length;
 
         updateReward(msg.sender);
+        Staking storage stakingInfo = StakingData[msg.sender];
 
-        IERC721(token).transferFrom(address(this), msg.sender, tokenId);
+        for (uint256 i; i < len; ) {
+            tokenId = tokenIds[i];
+            IERC721(token).transferFrom(msg.sender, address(this), tokenId);
+            stakingInfo.characterNftIds.push(tokenId);
+            stakingInfo.characterNftTokenIndex[tokenId] = stakingInfo.characterNftIds.length - 1;
+        }
+        stakingInfo.rewardRate =
+            baseRate +
+            4500 +
+            (stakingInfo.boosterNftIds.length + stakingInfo.characterNftIds.length) *
+            500;
 
-        if (stakingInfo.nftIds.length > 0) {
-            stakingInfo.nftIds.pop();
-            delete stakingInfo.nftTokenIndex[tokenId];
+        emit NFTTokenStaked(msg.sender, token, tokenIds);
+    }
+
+    function unstakeBoosterNFTToken(address token, uint256[] calldata tokenIds) external {
+        require(token == BoosterNFTToken, "incorrect BoosterNFT to unstake");
+
+        uint256 tokenId;
+        uint256 len = tokenIds.length;
+
+        updateReward(msg.sender);
+        Staking storage stakingInfo = StakingData[msg.sender];
+
+        for (uint256 i; i < len; ) {
+            tokenId = tokenIds[i];
+            require(IERC721(token).ownerOf(tokenId) == address(this), "Incorrect BoosterNFT Token ID");
+            IERC721(token).transferFrom(address(this), msg.sender, tokenId);
+
+            uint256 oldIndex = stakingInfo.boosterNftTokenIndex[tokenId]
+            uint256 lastTokenId = stakingInfo.boosterNftIds[stakingInfo.boosterNftIds.length - 1]
+            stakingInfo.boosterNftIds[oldIndex] = lastTokenId;
+            stakingInfo.boosterNftTokenIndex[lastTokenId] = oldIndex;
+
+            delete stakingInfo.boosterNftTokenIndex[tokenId];
+            stakingInfo.boosterNftIds.pop();
         }
 
-        stakingInfo.rewardRate = baseRate + 4500 + stakingInfo.nftIds.length * 500;
+        stakingInfo.rewardRate =
+            baseRate +
+            4500 +
+            (stakingInfo.boosterNftIds.length + stakingInfo.characterNftIds.length) *
+            500;
 
         emit NFTTokenUnstaked(msg.sender, token, tokenId);
     }
 
-    function stakeToken(address token, uint256 amount) public {
+    function unstakeCharacterNFTToken(address token, uint256[] calldata tokenIds) external {
+        require(token == CharacterNFTToken, "incorrect CharacterNFT to unstake");
+
+        uint256 tokenId;
+        uint256 len = tokenIds.length;
+
+        updateReward(msg.sender);
+        Staking storage stakingInfo = StakingData[msg.sender];
+
+        for (uint256 i; i < len; ) {
+            tokenId = tokenIds[i];
+            require(IERC721(token).ownerOf(tokenId) == address(this), "Incorrect CharacterNFT Token ID");
+            IERC721(token).transferFrom(address(this), msg.sender, tokenId);
+
+            uint256 oldIndex = stakingInfo.characterNftTokenIndex[tokenId]
+            uint256 lastTokenId = stakingInfo.characterNftIds[stakingInfo.characterNftIds.length - 1]
+            stakingInfo.characterNftIds[oldIndex] = lastTokenId;
+            stakingInfo.characterNftTokenIndex[lastTokenId] = oldIndex;
+
+            delete stakingInfo.characterNftTokenIndex[tokenId];
+            stakingInfo.characterNftIds.pop();
+        }
+
+        stakingInfo.rewardRate =
+            baseRate +
+            4500 +
+            (stakingInfo.boosterNftIds.length + stakingInfo.characterNftIds.length) *
+            500;
+
+        emit NFTTokenUnstaked(msg.sender, token, tokenId);
+    }
+
+    function stakeToken(address token, uint256 amount) external {
         require(token == Token, "incorrect Token to stake");
 
         Staking storage stakingInfo = StakingData[msg.sender];
@@ -91,7 +173,7 @@ contract StakingContract is Ownable {
 
         IERC20(token).transferFrom(msg.sender, address(this), amount);
 
-        if (stakingInfo.nftIds.length == 0) {
+        if (stakingInfo.boosterNftIds.length == 0 && stakingInfo.characterNftIds.length == 0) {
             stakingInfo.rewardRate = baseRate;
         }
 
@@ -102,7 +184,7 @@ contract StakingContract is Ownable {
         emit tokenStaked(msg.sender, token, amount);
     }
 
-    function unstakeToken(address token, uint256 amount) public {
+    function unstakeToken(address token, uint256 amount) external nonReentrant {
         require(token == Token, "incorrect Token to unstake");
 
         Staking storage stakingInfo = StakingData[msg.sender];
@@ -118,7 +200,7 @@ contract StakingContract is Ownable {
         emit tokenUnstaked(msg.sender, token, amount);
     }
 
-    function claimReward() public {
+    function claimReward() external nonReentrant {
         Staking storage stakingInfo = StakingData[msg.sender];
 
         require(stakingInfo.staker == msg.sender, "Invalid address");
@@ -147,15 +229,18 @@ contract StakingContract is Ownable {
         stakingInfo.lastTime = block.timestamp;
     }
 
-    function updateNFTToken(address _NFTToken) public onlyOwner {
-        NFTToken = _NFTToken;
+    function updateBoosterNFTToken(address _NFTToken) external onlyOwner {
+        BoosterNFTToken = _NFTToken;
+    }
+    function updateCharacterNFTToken(address _NFTToken) external onlyOwner {
+        CharacterNFTToken = _NFTToken;
     }
 
-    function updateToken(address _Token) public onlyOwner {
+    function updateToken(address _Token) external onlyOwner {
         Token = _Token;
     }
 
-    function updateBaseRate(uint256 _baseRate) public onlyOwner {
+    function updateBaseRate(uint256 _baseRate) external onlyOwner {
         baseRate = _baseRate;
     }
 }
