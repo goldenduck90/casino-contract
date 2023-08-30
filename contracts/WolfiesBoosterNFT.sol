@@ -19,7 +19,7 @@ contract WolfiesBoosterNFT is ERC721A, ERC721AQueryable, Ownable, ReentrancyGuar
 
     mapping(address => uint256) public whitelist;
 
-    constructor() ERC721A("WolfiesBoosterNFT", "WBN") {}
+    constructor() ERC721A("WolfiesBoosterNFT", "WOLFIES") {}
 
     modifier callerIsUser() {
         require(tx.origin == _msgSenderERC721A(), "The caller is another contract");
