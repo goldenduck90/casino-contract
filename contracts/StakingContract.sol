@@ -7,7 +7,7 @@ import {IERC721} from "./interfaces/IERC721.sol";
 import {SafeMath} from "./openzepplin/SafeMath.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract StakingContract is Ownable ReentrancyGuard {
+contract StakingContract is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
 
     address public BoosterNFTToken;
