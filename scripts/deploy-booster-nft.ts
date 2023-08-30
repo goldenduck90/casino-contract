@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+import { base_mainnet } from './config.json';
 
 const deployToken = async () => {
   const wolfiesBoosterNFT = await ethers.getContractFactory(
@@ -7,6 +8,9 @@ const deployToken = async () => {
   const boosterNft = await wolfiesBoosterNFT.deploy();
   await boosterNft.deployed();
   console.log("WolfiesBoosterNFT address:", boosterNft.address); // eslint-disable-line no-console
+  const { nft_booster: { baseUri } } = base_mainnet;
+
+  await boosterNft.functions.setBaseURI(baseUri)
 };
 
 const main = async () => {

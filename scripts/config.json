@@ -1,8 +1,14 @@
 {
 	"base_mainnet": {
 		"token": "0x4B8F444b313AeBAC210A8B39Efd397a884D94c01",
-		"nft_booster": "0xa3e135E91937296C51766917ca2F4E881d0e7Ef4",
-		"nft_character": "0x0000000000000000000000000000000000000000",
+		"nft_booster": {
+			"contract": "0xa3e135E91937296C51766917ca2F4E881d0e7Ef4",
+			"baseUri": "https://bronze-overall-mockingbird-470.mypinata.cloud/ipfs/QmQR4zXwVzwD2E64xz3K9AN8b8kREBYMh18n68hAnfDJ5z"
+		},
+		"nft_character": {
+			"contract": "0x0000000000000000000000000000000000000000",
+			"baseUri": "https://bronze-overall-mockingbird-470.mypinata.cloud/ipfs/QmQR4zXwVzwD2E64xz3K9AN8b8kREBYMh18n68hAnfDJ5z"
+		},
 		"coinflip": {
 			"address": "",
 			"fee": 400
@@ -18,8 +24,14 @@
 	},
 	"base_goerli": {
 		"token": "0x4B8F444b313AeBAC210A8B39Efd397a884D94c01",
-		"nft_booster": "0x5D2905291D8c3d9E4af6cA2b97e0fA5350079224",
-		"nft_character": "0x5D2905291D8c3d9E4af6cA2b97e0fA5350079224",
+		"nft_booster": {
+			"contract": "0xDC1A8b159D012fa0981DB21659Da8130D0ca2C6A",
+			"baseUri": "https://bronze-overall-mockingbird-470.mypinata.cloud/ipfs/QmQR4zXwVzwD2E64xz3K9AN8b8kREBYMh18n68hAnfDJ5z"
+		},
+		"nft_character": {
+			"contract": "0xDC1A8b159D012fa0981DB21659Da8130D0ca2C6A",
+			"baseUri": "https://bronze-overall-mockingbird-470.mypinata.cloud/ipfs/QmQR4zXwVzwD2E64xz3K9AN8b8kREBYMh18n68hAnfDJ5z"
+		},
 		"coinflip": {
 			"address": "0x2D871163968f9C03e0961Cb46297025F05e21134",
 			"fee": 400
@@ -29,7 +41,7 @@
 			"fee": 400
 		},
 		"staking": {
-			"address": "0xa3302a6619AE4bfb2aB9e5D08B9A45e2926F5f63",
+			"address": "0x08821F0aF8Bf60d4fa1545D689D0b29E01d3043D",
 			"baseRate": 400
 		}
 	}

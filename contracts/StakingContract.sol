@@ -76,6 +76,11 @@ contract StakingContract is Ownable, ReentrancyGuard {
         emit NFTTokenStaked(msg.sender, token, tokenIds);
     }
 
+    function getStakedBoosterNFTTokens(address user) external view returns (uint256[] memory) {
+        Staking storage stakingInfo = StakingData[user];
+        return stakingInfo.boosterNftIds;
+    }
+
     function stakeCharacterNFTToken(address token, uint256[] calldata tokenIds) external {
         require(token == CharacterNFTToken, "incorrect CharacterNFT to stake");
 
@@ -98,6 +103,11 @@ contract StakingContract is Ownable, ReentrancyGuard {
             500;
 
         emit NFTTokenStaked(msg.sender, token, tokenIds);
+    }
+
+    function getStakedCharacterNFTTokens(address user) external view returns (uint256[] memory) {
+        Staking storage stakingInfo = StakingData[user];
+        return stakingInfo.characterNftIds;
     }
 
     function unstakeBoosterNFTToken(address token, uint256[] calldata tokenIds) external {
