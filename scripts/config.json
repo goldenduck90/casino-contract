@@ -42,7 +42,7 @@
 		},
 		"staking": {
 			"address": "0xee5623AF9fDbAC78Ad5D5a3e0C26D78058845258",
-			"baseRate": 400
+			"baseRate": 2500
 		}
 	}
 }
