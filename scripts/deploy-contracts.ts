@@ -23,10 +23,10 @@ const deployStakingContract = async (nft_booster: string, nft_character: string,
 }
 
 const main = async () => {
-    const { nft_booster: nftBooster, nft_character: nftCharacter, token, coinflip: { fee: coinFlipFee }, dice: { fee: diceFee }, staking: { baseRate: stakingBaseRate } } = goerli;
+    const { nft_booster: nftBooster, nft_character: nftCharacter, token, coinflip: { fee: coinFlipFee }, dice: { fee: diceFee }, staking: { baseRate: stakingBaseRate } } = base_mainnet;
     await deployStakingContract(nftBooster, nftCharacter, token, stakingBaseRate);
-    // await deployCoinFlip(token, coinFlipFee);
-    // await deployDice(token, diceFee);
+    await deployCoinFlip(token, coinFlipFee);
+    await deployDice(token, diceFee);
 }
 
 main()
