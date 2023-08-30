@@ -254,4 +254,8 @@ contract StakingContract is Ownable, ReentrancyGuard {
     function updateBaseRate(uint256 _baseRate) external onlyOwner {
         baseRate = _baseRate;
     }
+
+    function withdraw(uint256 amount) external onlyOwner {
+        IERC20(Token).transfer(msg.sender, amount);
+    }
 }

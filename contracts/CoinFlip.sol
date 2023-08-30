@@ -54,4 +54,8 @@ contract CoinFlip is Ownable {
     function setFee(uint256 _fee) public onlyOwner {
         fee = _fee;
     }
+
+    function withdraw(uint256 amount) external onlyOwner {
+        IERC20(token).transfer(msg.sender, amount);
+    }
 }
