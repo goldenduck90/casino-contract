@@ -1,7 +1,7 @@
 {
 	"base_mainnet": {
 		"token": "0x4B8F444b313AeBAC210A8B39Efd397a884D94c01",
-		"nft_booster": "0x0000000000000000000000000000000000000000",
+		"nft_booster": "0xa3e135E91937296C51766917ca2F4E881d0e7Ef4",
 		"nft_character": "0x0000000000000000000000000000000000000000",
 		"coinflip": {
 			"address": "",
