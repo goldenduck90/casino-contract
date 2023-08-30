@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import { base_mainnet, goerli } from './config.json';
+import { Config } from "./type";
 
 const deployCoinFlip = async (token: string, fee: number) => {
     const CoinFlip = await ethers.getContractFactory("CoinFlip");
@@ -22,16 +22,11 @@ const deployStakingContract = async (nft_booster: string, nft_character: string,
     console.log("StakingContract address:", staking.address); // eslint-disable-line no-console
 }
 
-const main = async () => {
-    const { nft_booster: nftBooster, nft_character: nftCharacter, token, coinflip: { fee: coinFlipFee }, dice: { fee: diceFee }, staking: { baseRate: stakingBaseRate } } = base_mainnet;
-    await deployStakingContract(nftBooster, nftCharacter, token, stakingBaseRate);
-    await deployCoinFlip(token, coinFlipFee);
+const main = async (config: Config): Promise<void> => {
+    const { nft_booster: nftBooster, nft_character: nftCharacter, token, coinflip: { fee: coinFlipFee }, dice: { fee: diceFee }, staking: { baseRate: stakingBaseRate } } = config;
+    // await deployStakingContract(nftBooster, nftCharacter, token, stakingBaseRate);
+    // await deployCoinFlip(token, coinFlipFee);
     await deployDice(token, diceFee);
 }
 
-main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-        console.error(error); // eslint-disable-line no-console
-        process.exit(1);
-    });
+export default main

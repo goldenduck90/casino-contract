@@ -8,7 +8,7 @@ import { config as dotEnvConfig } from "dotenv";
 
 dotEnvConfig();
 
-const { ETHERSCAN_API_KEY, BASESCAN_API_KEY, INFURA_API_KEY, PRIVATE_KEY_ENV } = process.env;
+const { ETHERSCAN_API_KEY, BASESCAN_API_KEY, INFURA_API_KEY, PRIVATE_KEY_ENV, ALCHEMY_KEY } = process.env;
 const PRIVATE_KEY =
   PRIVATE_KEY_ENV ||
   "0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3"; // well known private key
@@ -27,8 +27,8 @@ const config: HardhatUserConfig = {
       url: `https://ropsten.infura.io/v3/${INFURA_API_KEY}`,
       accounts: [PRIVATE_KEY],
     },
-    base_goreli: {
-      url: `https://base-goerli.public.blastapi.io`,
+    base_goerli: {
+      url: `https://base-goerli.g.alchemy.com/v2/85JTlM3NGDzeQZuTUfAsCCKA-yh3R57D`,
       chainId: 84531,
       accounts: [PRIVATE_KEY],
     },
@@ -47,6 +47,7 @@ const config: HardhatUserConfig = {
     apiKey: {
       goerli: ETHERSCAN_API_KEY || "",
       base_mainnet: BASESCAN_API_KEY || "",
+      base_goerli: BASESCAN_API_KEY || ""
     },
     customChains: [
       {
@@ -55,6 +56,14 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://api.basescan.org/api",
           browserURL: "https://basescan.org"
+        }
+      },
+      {
+        network: "base_goerli",
+        chainId: 84531,
+        urls: {
+          apiURL: "https://api-goerli.basescan.org/api",
+          browserURL: "https://goerli.basescan.org"
         }
       }
     ]
