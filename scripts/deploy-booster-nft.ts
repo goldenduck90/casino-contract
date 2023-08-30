@@ -1,15 +1,17 @@
 import { ethers } from "hardhat";
 
 const deployToken = async () => {
-  const wolfieBoosterNFT = await ethers.getContractFactory("WolfieBoosterNFT");
-  const boosterNft = await wolfieBoosterNFT.deploy();
+  const wolfiesBoosterNFT = await ethers.getContractFactory(
+    "WolfiesBoosterNFT"
+  );
+  const boosterNft = await wolfiesBoosterNFT.deploy();
   await boosterNft.deployed();
-  console.log("WolfieBoosterNFT address:", boosterNft.address); // eslint-disable-line no-console
-}
+  console.log("WolfiesBoosterNFT address:", boosterNft.address); // eslint-disable-line no-console
+};
 
 const main = async () => {
   await deployToken();
-}
+};
 
 main()
   .then(() => process.exit(0))
