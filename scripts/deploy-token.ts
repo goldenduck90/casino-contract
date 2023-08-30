@@ -1,8 +1,9 @@
 import { ethers } from "hardhat";
 
 const deployToken = async () => {
+  const acounts = await ethers.getSigners()
   const WOLFLABToken = await ethers.getContractFactory("WOLFLABToken");
-  const token = await WOLFLABToken.deploy("0x73eA65d9551b91cb30F2ee617717dB8dB74F538f");
+  const token = await WOLFLABToken.deploy(acounts[0].address);
   await token.deployed();
   console.log("WOLFLABToken address:", token.address); // eslint-disable-line no-console
 }

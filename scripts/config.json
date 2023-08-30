@@ -16,20 +16,20 @@
 			"baseRate": 400
 		}
 	},
-	"goerli": {
-		"token": "0x314d7114d2dDdd32e9d6AAB5be32234f4ceBcE63",
-		"nft_booster": "0x310cf659C2DA5340870AD5A076dB44DEF33d1a8d",
-		"nft_character": "0x310cf659C2DA5340870AD5A076dB44DEF33d1a8d",
+	"base_goerli": {
+		"token": "0x4B8F444b313AeBAC210A8B39Efd397a884D94c01",
+		"nft_booster": "0xa3e135E91937296C51766917ca2F4E881d0e7Ef4",
+		"nft_character": "0xa3e135E91937296C51766917ca2F4E881d0e7Ef4",
 		"coinflip": {
-			"address": "0x46Da8821464d0E824855f972A5a3E00Bb47CD1B8",
+			"address": "0x2D871163968f9C03e0961Cb46297025F05e21134",
 			"fee": 400
 		},
 		"dice": {
-			"address": "0xaAc94E2330C1a97867c205Ba2cf6b70649A3874C",
+			"address": "0x314d7114d2dDdd32e9d6AAB5be32234f4ceBcE63",
 			"fee": 400
 		},
 		"staking": {
-			"address": "0xcFEa4b18cBF8afc4881bbc22c6700101f890A5EF",
+			"address": "0xeE756c9C994bC9c14dBfE85DaB439DC8575ebBE6",
 			"baseRate": 400
 		}
 	}
