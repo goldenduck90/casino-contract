@@ -7,21 +7,19 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "erc721a/contracts/ERC721A.sol";
 import "erc721a/contracts/extensions/ERC721AQueryable.sol";
 
-contract WolfieBoosterNFT is ERC721A, ERC721AQueryable, Ownable, ReentrancyGuard {
+contract WolfiesBoosterNFT is ERC721A, ERC721AQueryable, Ownable, ReentrancyGuard {
     using Strings for uint256;
 
     /// @notice Event emitted when user minted tokens.
     event Minted(address user, uint256 quantity, uint256 totalSupply);
 
-    uint256 public immutable maxSupply;
+    uint256 public immutable maxSupply = 2500;
 
     string private _baseTokenURI;
 
     mapping(address => uint256) public whitelist;
 
-    constructor(string memory name, string memory symbol, uint256 _maxSupply) ERC721A(name, symbol) {
-        maxSupply = _maxSupply;
-    }
+    constructor() ERC721A("WolfiesBoosterNFT", "WBN") {}
 
     modifier callerIsUser() {
         require(tx.origin == _msgSenderERC721A(), "The caller is another contract");
@@ -52,7 +50,7 @@ contract WolfieBoosterNFT is ERC721A, ERC721AQueryable, Ownable, ReentrancyGuard
     function tokenURI(uint256 tokenId) public view override(ERC721A, IERC721A) returns (string memory) {
         require(_exists(tokenId), "Token does not exist");
 
-        return string(abi.encodePacked(_baseTokenURI, tokenId.toString()));
+        return _baseTokenURI;
     }
 
     /**
