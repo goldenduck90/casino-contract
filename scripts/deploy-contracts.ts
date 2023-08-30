@@ -24,8 +24,8 @@ const deployStakingContract = async (nft_booster: string, nft_character: string,
 
 const main = async (config: Config): Promise<void> => {
     const { nft_booster: nftBooster, nft_character: nftCharacter, token, coinflip: { fee: coinFlipFee }, dice: { fee: diceFee }, staking: { baseRate: stakingBaseRate } } = config;
-    // await deployStakingContract(nftBooster, nftCharacter, token, stakingBaseRate);
-    // await deployCoinFlip(token, coinFlipFee);
+    await deployStakingContract(nftBooster, nftCharacter, token, stakingBaseRate);
+    await deployCoinFlip(token, coinFlipFee);
     await deployDice(token, diceFee);
 }
 

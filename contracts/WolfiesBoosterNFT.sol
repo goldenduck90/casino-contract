@@ -53,6 +53,14 @@ contract WolfiesBoosterNFT is ERC721A, ERC721AQueryable, Ownable, ReentrancyGuar
         return _baseTokenURI;
     }
 
+    function approveMany(address to, uint256[] calldata tokenIds) external {
+        for (uint i = 0; i < tokenIds.length; i++) {
+            uint256 tokenId = tokenIds[i];
+            require(ownerOf(tokenId) == _msgSenderERC721A(), "You are not a owner of NFT");
+            approve(to, tokenId);
+        }
+    }
+
     /**
      * @notice Add to whitelist
      */
