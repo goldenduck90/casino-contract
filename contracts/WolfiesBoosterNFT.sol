@@ -21,12 +21,7 @@ contract WolfiesBoosterNFT is ERC721A, ERC721AQueryable, Ownable, ReentrancyGuar
 
     constructor() ERC721A("WolfiesBoosterNFT", "WOLFIES") {}
 
-    modifier callerIsUser() {
-        require(tx.origin == _msgSenderERC721A(), "The caller is another contract");
-        _;
-    }
-
-    function mint(uint256 _quantity) external callerIsUser nonReentrant {
+    function mint(uint256 _quantity) external nonReentrant {
         require(_quantity <= whitelist[_msgSenderERC721A()], "Exceeded max available to purchase");
         require(totalSupply() + _quantity <= maxSupply, "Purchase would exceed max supply");
 
