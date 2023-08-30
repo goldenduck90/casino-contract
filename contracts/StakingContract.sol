@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.8.5 <0.9.0;
 
 import {Ownable} from "./openzepplin/Ownable.sol";
@@ -61,7 +61,7 @@ contract StakingContract is Ownable, ReentrancyGuard {
         updateReward(msg.sender);
         Staking storage stakingInfo = StakingData[msg.sender];
 
-        for (uint256 i; i < len; ) {
+        for (uint256 i = 0; i < len; i++) {
             tokenId = tokenIds[i];
             IERC721(token).transferFrom(msg.sender, address(this), tokenId);
             stakingInfo.boosterNftIds.push(tokenId);
@@ -85,7 +85,7 @@ contract StakingContract is Ownable, ReentrancyGuard {
         updateReward(msg.sender);
         Staking storage stakingInfo = StakingData[msg.sender];
 
-        for (uint256 i; i < len; ) {
+        for (uint256 i = 0; i < len; i++) {
             tokenId = tokenIds[i];
             IERC721(token).transferFrom(msg.sender, address(this), tokenId);
             stakingInfo.characterNftIds.push(tokenId);
@@ -109,7 +109,7 @@ contract StakingContract is Ownable, ReentrancyGuard {
         updateReward(msg.sender);
         Staking storage stakingInfo = StakingData[msg.sender];
 
-        for (uint256 i; i < len; ) {
+        for (uint256 i = 0; i < len; i++) {
             tokenId = tokenIds[i];
             require(IERC721(token).ownerOf(tokenId) == address(this), "Incorrect BoosterNFT Token ID");
             IERC721(token).transferFrom(address(this), msg.sender, tokenId);
@@ -141,7 +141,7 @@ contract StakingContract is Ownable, ReentrancyGuard {
         updateReward(msg.sender);
         Staking storage stakingInfo = StakingData[msg.sender];
 
-        for (uint256 i; i < len; ) {
+        for (uint256 i = 0; i < len; i++) {
             tokenId = tokenIds[i];
             require(IERC721(token).ownerOf(tokenId) == address(this), "Incorrect CharacterNFT Token ID");
             IERC721(token).transferFrom(address(this), msg.sender, tokenId);

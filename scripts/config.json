@@ -18,8 +18,8 @@
 	},
 	"base_goerli": {
 		"token": "0x4B8F444b313AeBAC210A8B39Efd397a884D94c01",
-		"nft_booster": "0x1EaB4F8dCcaeed99BB0441929e656230E3E6d3e2",
-		"nft_character": "0x1EaB4F8dCcaeed99BB0441929e656230E3E6d3e2",
+		"nft_booster": "0x5D2905291D8c3d9E4af6cA2b97e0fA5350079224",
+		"nft_character": "0x5D2905291D8c3d9E4af6cA2b97e0fA5350079224",
 		"coinflip": {
 			"address": "0x2D871163968f9C03e0961Cb46297025F05e21134",
 			"fee": 400
@@ -29,7 +29,7 @@
 			"fee": 400
 		},
 		"staking": {
-			"address": "0xeE756c9C994bC9c14dBfE85DaB439DC8575ebBE6",
+			"address": "0xa3302a6619AE4bfb2aB9e5D08B9A45e2926F5f63",
 			"baseRate": 400
 		}
 	}
