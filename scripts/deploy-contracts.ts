@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import { base_mainnet } from './config.json';
+import { base_mainnet, goerli } from './config.json';
 
 const deployCoinFlip = async (token: string, fee: number) => {
     const CoinFlip = await ethers.getContractFactory("CoinFlip");
@@ -15,18 +15,18 @@ const deployDice = async (token: string, fee: number) => {
     console.log("Dice address:", dice.address); // eslint-disable-line no-console
 }
 
-const deployStakingContract = async (nft: string, token: string, baseRate: number) => {
+const deployStakingContract = async (nft_booster: string, nft_character: string, token: string, baseRate: number) => {
     const StakingContract = await ethers.getContractFactory("StakingContract");
-    const staking = await StakingContract.deploy(nft, token, baseRate);
+    const staking = await StakingContract.deploy(nft_booster, nft_character, token, baseRate);
     await staking.deployed();
     console.log("StakingContract address:", staking.address); // eslint-disable-line no-console
 }
 
 const main = async () => {
-    const { nft_booster, nft_character, token, coinflip: { fee: coinFlipFee }, dice: { fee: diceFee }, staking: { baseRate: stakingBaseRate } } = base_mainnet;
-    await deployStakingContract(nft_booster, nft_character, token, stakingBaseRate);
-    await deployCoinFlip(token, coinFlipFee);
-    await deployDice(token, diceFee);
+    const { nft_booster: nftBooster, nft_character: nftCharacter, token, coinflip: { fee: coinFlipFee }, dice: { fee: diceFee }, staking: { baseRate: stakingBaseRate } } = goerli;
+    await deployStakingContract(nftBooster, nftCharacter, token, stakingBaseRate);
+    // await deployCoinFlip(token, coinFlipFee);
+    // await deployDice(token, diceFee);
 }
 
 main()

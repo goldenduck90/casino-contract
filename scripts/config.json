@@ -18,18 +18,18 @@
 	},
 	"goerli": {
 		"token": "0x314d7114d2dDdd32e9d6AAB5be32234f4ceBcE63",
-		"nft_booster": "0x3Dd37284759aa40416E9008393B10f334c03e68E",
-		"nft_character": "0x0000000000000000000000000000000000000000",
+		"nft_booster": "0x310cf659C2DA5340870AD5A076dB44DEF33d1a8d",
+		"nft_character": "0x310cf659C2DA5340870AD5A076dB44DEF33d1a8d",
 		"coinflip": {
-			"address": "0xe63B516832A411984A3135C4601c42CbA8327551",
+			"address": "0x46Da8821464d0E824855f972A5a3E00Bb47CD1B8",
 			"fee": 400
 		},
 		"dice": {
-			"address": "0x7B7e95aB069286568D0c2E263B4979fCc8B41B88",
+			"address": "0xaAc94E2330C1a97867c205Ba2cf6b70649A3874C",
 			"fee": 400
 		},
 		"staking": {
-			"address": "0xFF5322505fC22302fC14A0A157759F0A88252128",
+			"address": "0xcFEa4b18cBF8afc4881bbc22c6700101f890A5EF",
 			"baseRate": 400
 		}
 	}
